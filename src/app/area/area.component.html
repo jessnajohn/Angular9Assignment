@@ -1,0 +1,53 @@
+<div class="jumbotron">
+    <div class="container">
+
+        <h3>Calculate Area</h3>
+        <div class="col-xs-12">
+            <form [formGroup]="calculateAreaForm" (ngSubmit)="onSubmit()">
+                <div class="form-group">
+                    <label for="length">Length: </label>
+                    <input type="text" (click)="textFieldTouched()" id="length" formControlName="length"
+                        class="form-control"
+                        [ngClass]="{ 'is-invalid': (f.length.touched || submitted) && f.length.errors  }">
+                    <div *ngIf=" f.length.errors " class="invalid-feedback">
+                        <div *ngIf="submitted && f.length.errors.required ">Please enter Length !</div>
+                        <div *ngIf=" f.length.touched && f.length.errors.pattern ">Please enter a valid Length. Make
+                            sure to avoid special characters and zero!!</div>
+                        <div *ngIf=" f.length.touched && f.length.errors.minlength"> Length should contain minimum of 2
+                            digits</div>
+                        <div *ngIf=" f.length.touched && f.length.errors.maxlength"> Length can contain maximum of 9
+                            digits</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="width">Width: </label>
+                    <input type="text" (click)="textFieldTouched()" id="Width" formControlName="width"
+                        class="form-control"
+                        [ngClass]="{ 'is-invalid': (f.width.touched || submitted) && f.width.errors }">
+                    <div *ngIf="f.width.errors" class="invalid-feedback">
+                        <div *ngIf=" submitted && f.width.errors.required"> Please enter Width !</div>
+                        <div *ngIf=" f.width.touched && f.width.errors.pattern ">Please enter a valid Width. Make sure
+                            to avoid special characters and zero!!</div>
+                        <div *ngIf=" f.width.touched && f.width.errors.minlength"> Width should contain minimum of 2
+                            digits</div>
+                        <div *ngIf=" f.width.touched && f.width.errors.maxlength"> Width can contain maximum of 9 digits
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-primary" type="submit"> Submit</button>
+
+
+                <div class="form-group">
+                    <label for="area">Area: </label>
+                    <input type="text" id="area" formControlName="area" class="form-control">
+
+                </div>
+                <button class="btn btn-primary" type="button" (click)="resetForm()"> Clear</button>
+                &nbsp;
+                <button class="btn btn-primary" type="button" (click)="nextClick()"> Next</button>
+
+            </form>
+        </div>
+
+    </div>
+</div>
