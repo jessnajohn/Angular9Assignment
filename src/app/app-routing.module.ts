@@ -6,7 +6,7 @@ import { AdduserComponent } from './adduser/adduser.component';
 import { EdituserComponent } from './edituser/edituser.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/area',pathMatch: 'full' },
+  { path: '', redirectTo: '/home',pathMatch: 'full' },
   { path: 'area', component: AreaComponent },
    { path: 'home', component: HomeComponent },
    { path: 'adduser', component: AdduserComponent },

@@ -1,7 +1,7 @@
 <div class="jumbotron">
     <div class="container">
-  <h3>Add User</h3>
-<form [formGroup] ="userEditDetails" (ngSubmit) ="onSubmit()">
+  <h3>Edit User Details</h3>
+<form [formGroup] ="userEditDetailsForms" (ngSubmit) ="onSubmit()">
 
     <div class="form-group">
         <label for="name">Name: </label>
@@ -16,9 +16,7 @@
         <input type="text"  id="city" formControlName="city" class="form-control">
     </div>
     <button class="btn btn-primary" type="submit"> Submit</button>
-    &nbsp;
-    
-    <button class="btn btn-primary" disabled type="button"> Update</button>
+
 
 </form>
     </div>

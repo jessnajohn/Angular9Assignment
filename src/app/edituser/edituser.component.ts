@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl,Validators } from '@angular/forms';
+import { Component, OnInit, Input } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-edituser',
@@ -7,23 +7,26 @@ import { FormGroup, FormControl,Validators } from '@angular/forms';
   styleUrls: ['./edituser.component.css']
 })
 export class EdituserComponent implements OnInit {
-  userEditDetails:FormGroup
+
+  @Input() userDetails: any;
+  userEditDetailsForms: FormGroup;
 
   constructor() { }
 
   ngOnInit(): void {
-    this.userEditDetails=new FormGroup({
-      name:new FormControl('',[Validators.required]),
-      age:new FormControl('',[]),
-      city:new FormControl('',[])
-    
+
+    this.userEditDetailsForms = new FormGroup({
+      name: new FormControl('', [Validators.required]),
+      age: new FormControl('', [Validators.required,]),
+      city: new FormControl('', [])
+
     });
-      
+
   }
-      onSubmit(){
-       // this.submitted=true
-    
-      }
-  
+  onSubmit() {
+    // this.submitted=true
+
+  }
+
 
 }

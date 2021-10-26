@@ -1,26 +1,36 @@
 <div class="jumbotron">
     <div class="container">
   <h3>Add User</h3>
-<form [formGroup] ="userAddDetails" (ngSubmit) ="onSubmit()">
+<form [formGroup] ="userAddDetailsForm" (ngSubmit) ="onSubmit()">
 
     <div class="form-group">
         <label for="name">Name: </label>
-        <input type="text"  id="name" formControlName="name" class="form-control">
+        
+            <input type="text"  id="name" formControlName="name"class="form-control"
+              [ngClass]="{'is-invalid':(submitted || f.name.touched)  && f.name.errors }">
+             <div *ngIf=" f.name.errors " class="invalid-feedback"> 
+            <div *ngIf="f.name.errors.required && f.name.touched ">Please enter name !</div>
+         </div>  
     </div>
+   
     <div class="form-group">
         <label for="age">Age: </label>
-        <input type="text"  id="age" formControlName="age" class="form-control">
-    </div>
+        <input type="text"  id="age" formControlName="age" class="form-control"
+        [ngClass]="{'is-invalid': (f.age.touched || submitted) && f.age.errors }">
+         <div *ngIf=" f.age.errors " class="invalid-feedback"> 
+            <div *ngIf="  f.age.errors.required && f.age.touched ">Please enter age !</div>
+         </div>
+        </div>
     <div class="form-group">
         <label for="city">City: </label>
         <input type="text"  id="city" formControlName="city" class="form-control">
     </div>
     <button class="btn btn-primary" type="submit"> Submit</button>
-    &nbsp;
-    
-    <button class="btn btn-primary" disabled type="button"> Update</button>
 
 </form>
+<div *ngIf="successMessage" class="alert alert-success" role="alert">
+    {{successMessage}}
+  </div>
     </div>
 </div> 
 

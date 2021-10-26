@@ -7,6 +7,8 @@ import { AreaComponent } from './area/area.component';
 import { HomeComponent } from './home/home.component';
 import { EdituserComponent } from './edituser/edituser.component';
 import { AdduserComponent } from './adduser/adduser.component';
+import { FooterComponent } from './footer/footer.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +16,9 @@ import { AdduserComponent } from './adduser/adduser.component';
     AreaComponent,
     HomeComponent,
     EdituserComponent,
-    AdduserComponent
+    AdduserComponent,
+    FooterComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
