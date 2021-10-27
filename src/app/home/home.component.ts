@@ -12,8 +12,6 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit {
 
   userDetailsList: Array<any> = [];
-  HighlightRow: Number;
-  enableEdit: any = 0;
   userDetails: any;
 
   constructor(private router: Router) {
