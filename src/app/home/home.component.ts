@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 //import { EdituserComponent } from '../edituser/edituser.component';
+import { SharedService } from '../shared.service';
 
 
 
@@ -12,13 +13,16 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit {
 
   userDetailsList: Array<any> = [];
-  userDetails: any;
+  userDetails: any = [];
+  public uname: string;
+  isNavigating = false
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private serviceShared: SharedService) {
 
   }
 
   ngOnInit(): void {
+    this.isNavigating = false
     this.userDetailsList = JSON.parse(localStorage.getItem("userdetails"))
   }
 
@@ -27,7 +31,10 @@ export class HomeComponent implements OnInit {
   }
 
   editUser(details) {
-    this.userDetails = details
+
+    this.serviceShared.detailsSource = details;
+    this.uname = 'jessna john'
+    this.isNavigating = true
     this.router.navigate(['/edituser']);
   }
 

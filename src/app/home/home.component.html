@@ -21,19 +21,16 @@
          <td>
           <button class="btn btn-primary"  (click)="editUser(details)" type="button"> Edit </button>
           &nbsp;
-          <button class="btn btn-primary"   (click)="deleteUser(details)" type="button"> Delete</button>
+          <button class="btn btn-danger"   (click)="deleteUser(details)" type="button"> Delete</button>
          </td>
          
         </tr>
       </tbody>
     </table>
     </div>
-  <button class="btn btn-primary" (click)=addUser() type="button"> Add User</button>
+  <button class="btn btn-primary" (click)=addUser() type="button"> Add</button>
+   <!-- <div *ngIf = "isNavigating" >  
+    <app-edituser [name]="uname"></app-edituser>
+  </div>  -->
 </div> 
- <div *ngIf ="userDetails" >
-  <div>
-   
-  </div> 
-<app-edituser [userDetails] = "userDetails">
-</app-edituser>
- </div> 
+  
