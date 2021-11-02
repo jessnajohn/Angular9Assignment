@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 //import { EdituserComponent } from '../edituser/edituser.component';
 import { SharedService } from '../shared.service';
@@ -10,12 +10,14 @@ import { SharedService } from '../shared.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit,OnDestroy {
 
   userDetailsList: Array<any> = [];
   userDetails: any = [];
-  public uname: string;
   isNavigating = false
+  UserCheckValue:any;
+  isAdmin: boolean = false;
+  subscription:any
 
   constructor(private router: Router, private serviceShared: SharedService) {
 
@@ -24,7 +26,18 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.isNavigating = false
     this.userDetailsList = JSON.parse(localStorage.getItem("userdetails"))
+   this.subscription =this.serviceShared.userValue.subscribe(selectedValue =>{
+     if( selectedValue ==  "1"){
+     this.isAdmin = true
+    }
+    else{
+      this.isAdmin = false
+    }
+    }) 
   }
+  ngOnDestroy() {
+    this.subscription.unsubscribe()
+}
 
   addUser() {
     this.router.navigate(['/adduser']);
@@ -33,7 +46,7 @@ export class HomeComponent implements OnInit {
   editUser(details) {
 
     this.serviceShared.detailsSource = details;
-    this.uname = 'jessna john'
+    
     this.isNavigating = true
     this.router.navigate(['/edituser']);
   }

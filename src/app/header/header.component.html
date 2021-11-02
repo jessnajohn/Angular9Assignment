@@ -1,1 +1,14 @@
-<h3>User Details</h3>
+
+<h4>User Details
+    <form [formGroup] ="userHeaderDetailsForm" (ngSubmit) ="onSubmit()">
+<div id="ddlvalue"
+  style="text-align: right;">
+    <select  (change)="changeUser($event)" formControlName="userSelect" class="custom-select"  > 
+    <option value="1">Admin</option>
+    <option value="2">User</option>
+</select>
+</div>
+</form>
+</h4>
+
+

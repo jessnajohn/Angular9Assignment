@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SharedService } from '../shared.service';
@@ -9,16 +9,15 @@ import { SharedService } from '../shared.service';
   styleUrls: ['./edituser.component.css'],
   inputs: ['userDetails']
 })
-export class EdituserComponent implements OnInit {
+export class EdituserComponent implements OnInit ,OnDestroy {
   previousValues: any;
   userEditDetailsForms: FormGroup;
   submitted = false
   successMessage: string = "";
   userDetailsList: Array<any> = [];
+  subscription: any;
 
   constructor(private router: Router, private serviceShared: SharedService) { }
-
-
 
   ngOnInit(): void {
     this.userDetailsList = JSON.parse(localStorage.getItem("userdetails"))
@@ -32,13 +31,24 @@ export class EdituserComponent implements OnInit {
     this.f.name.setValue(this.previousValues.name);
     this.f.age.setValue(this.previousValues.age);
     this.f.city.patchValue(this.previousValues.city);
-
-
-
-
+    this.subscription = this.serviceShared.userValue.subscribe(value => {
+      if (value == "2") {
+        this.f.age.disable();
+        this.f.city.disable();
+      }
+      else {
+        this.f.age.enable();
+        this.f.city.enable();
+      }
+    })
+  }
+  ngOnDestroy() {
+    this.subscription.unsubscribe()
+  }
+  get f() {
+    return this.userEditDetailsForms.controls;
   }
   onSubmit() {
-
     this.submitted = true
     if (this.userEditDetailsForms.invalid) {
       return;
@@ -59,10 +69,5 @@ export class EdituserComponent implements OnInit {
 
 
   }
-  get f() {
-    return this.userEditDetailsForms.controls;
-  }
-
-
 
 }

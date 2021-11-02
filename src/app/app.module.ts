@@ -9,6 +9,8 @@ import { EdituserComponent } from './edituser/edituser.component';
 import { AdduserComponent } from './adduser/adduser.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
+import { ObservableComponent } from './observable/observable.component';
+import  {SharedService} from './shared.service';
 
 @NgModule({
   declarations: [
@@ -18,14 +20,15 @@ import { HeaderComponent } from './header/header.component';
     EdituserComponent,
     AdduserComponent,
     FooterComponent,
-    HeaderComponent
+    HeaderComponent,
+    ObservableComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [SharedService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
