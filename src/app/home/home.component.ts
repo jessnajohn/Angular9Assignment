@@ -14,7 +14,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   userDetailsList: Array<any> = [];
   userDetails: any = [];
   isNavigating = false
-  UserCheckValue: any;
   isAdmin: boolean = false;
   subscription: any
 
