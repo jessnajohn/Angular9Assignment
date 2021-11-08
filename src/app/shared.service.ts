@@ -7,13 +7,14 @@ import { BehaviorSubject } from 'rxjs';
 )
 export class SharedService {
   public detailsSource: any;
+  public addUserDetails: any;
   public userValue = new BehaviorSubject<any>("2");
 
 
 
   constructor() { }
 
-  UpdateuserValue(newValue: any) {
+  updateUserValue(newValue: any) {
     this.userValue.next(newValue)
   }
 }

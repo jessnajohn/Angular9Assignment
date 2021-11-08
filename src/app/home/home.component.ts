@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-//import { EdituserComponent } from '../edituser/edituser.component';
 import { SharedService } from '../shared.service';
 
 
@@ -10,14 +9,14 @@ import { SharedService } from '../shared.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit,OnDestroy {
+export class HomeComponent implements OnInit, OnDestroy {
 
   userDetailsList: Array<any> = [];
   userDetails: any = [];
   isNavigating = false
-  UserCheckValue:any;
+  UserCheckValue: any;
   isAdmin: boolean = false;
-  subscription:any
+  subscription: any
 
   constructor(private router: Router, private serviceShared: SharedService) {
 
@@ -25,41 +24,39 @@ export class HomeComponent implements OnInit,OnDestroy {
 
   ngOnInit(): void {
     this.isNavigating = false
-    this.userDetailsList = JSON.parse(localStorage.getItem("userdetails"))
-   this.subscription =this.serviceShared.userValue.subscribe(selectedValue =>{
-     if( selectedValue ==  "1"){
-     this.isAdmin = true
-    }
-    else{
-      this.isAdmin = false
-    }
-    }) 
+    this.userDetailsList = this.serviceShared.addUserDetails
+    this.subscription = this.serviceShared.userValue.subscribe(selectedValue => {
+      if (selectedValue == "1") {
+        this.isAdmin = true
+      }
+      else {
+        this.isAdmin = false
+      }
+    })
   }
   ngOnDestroy() {
     this.subscription.unsubscribe()
-}
+  }
 
   addUser() {
     this.router.navigate(['/adduser']);
   }
 
   editUser(details) {
-
     this.serviceShared.detailsSource = details;
-    
     this.isNavigating = true
     this.router.navigate(['/edituser']);
   }
 
   deleteUser(details) {
     let selectedUser = details
-    let allUsers: any[] = JSON.parse(localStorage.getItem("userdetails"));
-    let remainingUsers = allUsers.filter(user => {
+    this.userDetailsList = this.serviceShared.addUserDetails
+    let remainingUsers = this.userDetailsList.filter(user => {
       return user.name !== selectedUser.name;
     });
-
-    localStorage.setItem("userdetails", JSON.stringify(remainingUsers))
+    this.serviceShared.addUserDetails = remainingUsers;
     this.userDetailsList = remainingUsers;
+
 
 
   }

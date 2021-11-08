@@ -9,7 +9,7 @@ import { SharedService } from '../shared.service';
   styleUrls: ['./edituser.component.css'],
   inputs: ['userDetails']
 })
-export class EdituserComponent implements OnInit ,OnDestroy {
+export class EdituserComponent implements OnInit, OnDestroy {
   previousValues: any;
   userEditDetailsForms: FormGroup;
   submitted = false
@@ -20,13 +20,19 @@ export class EdituserComponent implements OnInit ,OnDestroy {
   constructor(private router: Router, private serviceShared: SharedService) { }
 
   ngOnInit(): void {
-    this.userDetailsList = JSON.parse(localStorage.getItem("userdetails"))
+    this.createForm()
+    this.setFieldValues()
+  }
+  createForm() {
+    this.userDetailsList = this.serviceShared.addUserDetails
     this.userEditDetailsForms = new FormGroup({
       name: new FormControl('', [Validators.required]),
       age: new FormControl('', [Validators.required,]),
       city: new FormControl('', [])
     });
 
+  }
+  setFieldValues() {
     this.previousValues = this.serviceShared.detailsSource
     this.f.name.setValue(this.previousValues.name);
     this.f.age.setValue(this.previousValues.age);
@@ -41,33 +47,34 @@ export class EdituserComponent implements OnInit ,OnDestroy {
         this.f.city.enable();
       }
     })
+
   }
+
   ngOnDestroy() {
     this.subscription.unsubscribe()
   }
+
   get f() {
     return this.userEditDetailsForms.controls;
   }
+
   onSubmit() {
     this.submitted = true
     if (this.userEditDetailsForms.invalid) {
       return;
     }
     let selectedUser = this.userEditDetailsForms.value;
-    let allUsers: any[] = JSON.parse(localStorage.getItem("userdetails"));
-    let remainingUsers = allUsers.filter(user => {
+    this.userDetailsList = this.serviceShared.addUserDetails
+    let remainingUsers = this.userDetailsList.filter(user => {
       return user.name !== selectedUser.name;
     });
     remainingUsers.push(selectedUser)
     this.userDetailsList = remainingUsers;
-    localStorage.setItem("userdetails", JSON.stringify(remainingUsers))
+    this.serviceShared.addUserDetails = remainingUsers;
     this.successMessage = 'Details updated successfully';
     setTimeout(() => {
       this.successMessage = "";
       this.router.navigate(['/home']);
     }, 1500)
-
-
   }
-
 }

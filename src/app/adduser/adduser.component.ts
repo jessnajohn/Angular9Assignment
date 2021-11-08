@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { SharedService } from '../shared.service';
 
 @Component({
   selector: 'app-adduser',
@@ -10,11 +11,14 @@ import { Router } from '@angular/router';
 export class AdduserComponent implements OnInit {
   userAddDetailsForm: FormGroup
   successMessage: string = "";
-  submitted = false
+  submitted = false;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private serviceShared: SharedService) { }
 
   ngOnInit(): void {
+    this.createForm()
+  }
+  createForm() {
     this.userAddDetailsForm = new FormGroup({
       name: new FormControl('', [Validators.required]),
       age: new FormControl('', [Validators.required, Validators.pattern("^[1-9][0-9]*")]),
@@ -27,10 +31,10 @@ export class AdduserComponent implements OnInit {
     if (this.userAddDetailsForm.invalid) {
       return;
     }
-    let addedUsersDetails: any[] = JSON.parse(localStorage.getItem("userdetails")) || [];
+    let oldUsersDetails: any[] = this.serviceShared.addUserDetails ? this.serviceShared.addUserDetails : []
     let currentUser = this.userAddDetailsForm.value;
-    addedUsersDetails.push(currentUser);
-    localStorage.setItem('userdetails', JSON.stringify(addedUsersDetails));
+    oldUsersDetails.push(currentUser);
+    this.serviceShared.addUserDetails = oldUsersDetails;
     this.successMessage = 'Details added successfully';
     setTimeout(() => {
       this.successMessage = "";

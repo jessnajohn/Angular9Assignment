@@ -11,6 +11,8 @@ import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { ObservableComponent } from './observable/observable.component';
 import  {SharedService} from './shared.service';
+import {DropdownModule} from 'primeng/dropdown';
+import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import  {SharedService} from './shared.service';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DropdownModule,
+    BrowserAnimationsModule
   ],
   providers: [SharedService],
   bootstrap: [AppComponent]
